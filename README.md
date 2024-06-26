@@ -35,4 +35,34 @@ Other papers (like "DoubleX" by Fass et al. and "CoCo" by Yu et al.) assume a we
   * The web page has access to a privileged API indirectly through communication with the content script via localStorage, which in turn communicates with the background page (MV2):  `vuln01_weak_mv2_localStorage`
   * The web page has access to a privileged API indirectly through communication with the content script via postMessage, which in turn communicates with the service worker (MV3): `vuln01_weak_mv3_postMessage`
   * The web page has access to a privileged API indirectly through communication with the content script via the DOM, which in turn communicates with the service worker (MV3): `vuln01_weak_mv3_dom`
-  * The web page has access to a privileged API indirectly through communication with the content script via localStorage, which in turn communicates with the service worker (MV3):  `vuln01_weak_mv3_localStorage`
+  * The web page has access to a privileged API indirectly through communication with the content script via localStorage, which in turn communicates with the service worker (MV3): `vuln01_weak_mv3_localStorage`
+  * Similarly, the web page has access to sensitive data:
+     * `vuln03_weak_mv2_runtime_sendMessage`
+     * `vuln03_weak_mv3_runtime_sendMessage`
+     * `vuln03_weak_mv2_postMessage`
+     * `vuln03_weak_mv2_dom`
+     * `vuln03_weak_mv2_localStorage`
+     * `vuln03_weak_mv3_postMessage`
+     * `vuln03_weak_mv3_dom`
+     * `vuln03_weak_mv3_localStorage`
+     * It is also conceivable that the web page has indirect reading access to the extension storage via communication with the content script (or the background page/service worker):
+     * `vuln03_weak_mv2_runtime_sendMessage_ext_storage`
+     * `vuln03_weak_mv3_runtime_sendMessage_ext_storage`
+     * `vuln03_weak_mv2_postMessage_ext_storage`
+     * `vuln03_weak_mv2_dom_ext_storage`
+     * `vuln03_weak_mv2_localStorage_ext_storage`
+     * `vuln03_weak_mv3_postMessage_ext_storage`
+     * `vuln03_weak_mv3_dom_ext_storage`
+     * `vuln03_weak_mv3_localStorage_ext_storage`
+  * It is also theoretically conceivable that the web page has indirect writing access to the extension storage via communication with the content script (or the background page/service worker). If the background page/service worker then pastes this data into different websites, unfiltered, we got UXSS:
+     * `vuln02_weak_mv2_runtime_sendMessage_ext_storage`
+     * `vuln02_weak_mv3_runtime_sendMessage_ext_storage`
+     * `vuln02_weak_mv2_postMessage_ext_storage`
+     * `vuln02_weak_mv2_dom_ext_storage`
+     * `vuln02_weak_mv2_localStorage_ext_storage`
+     * `vuln02_weak_mv3_postMessage_ext_storage`
+     * `vuln02_weak_mv3_dom_ext_storage`
+     * `vuln02_weak_mv3_localStorage_ext_storage`
+
+Note that, for simplicity, we're always assuming non-authentication (instead of ill-authentication) for all of the examples above.
+
