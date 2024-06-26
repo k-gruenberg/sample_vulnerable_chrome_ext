@@ -9,8 +9,8 @@ Some sample vulnerable Chrome extensions (under different attacker models: advan
 
 `Web Page` and `Content Script` lie in the same process (the renderer process), while the `Background Page` lies in a seperate process (the extension process).
 
-While a simple web attacker can only influence the background page through the arrows shown between web page and content script and web page and background page,  
-a more powerful renderer attacker can take over the content script as well and influence the background page through the arrow shown between content script and background page.
+While a **simple web attacker** can only influence the background page through the arrows shown between web page and content script and web page and background page,  
+a more powerful **renderer attacker** can take over the content script as well and influence the background page through the arrow shown between content script and background page.
 
 ## Renderer attacker
 
