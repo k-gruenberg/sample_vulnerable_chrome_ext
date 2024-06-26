@@ -15,5 +15,7 @@ Vulnerabilities considered here are those considered by Young Min Kim and Byoung
 * *Vulnerability type 03:* The **content script** has access to *sensitive* data, either through extension messages exchanged with the **background script/service worker** or through the **extension storage**:
   * Sensitive data in extension storage (MV2 extension): `vuln03_mv2_ext_storage`
   * Sensitive data in extension storage (MV3 extension): `vuln03_mv3_ext_storage`
-  * Sensitive data received through messages from the background page (MV2 extension): `vuln03_mv2_bg_page`
-  * Sensitive data received through messages from the service worker (MV3 extension): `vuln03_mv3_service_worker`
+  * Sensitive data received through non-authenticated messages from the background page (MV2 extension): `vuln03_mv2_non_authenticated`
+  * Sensitive data received through ill-authenticated messages from the background page (MV2 extension): `vuln03_mv2_ill_authenticated`
+  * Sensitive data received through non-authenticated messages from the service worker (MV3 extension): `vuln03_mv3_non_authenticated`
+  * Sensitive data received through ill-authenticated messages from the service worker (MV3 extension): `vuln03_mv3_ill_authenticated`
