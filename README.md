@@ -1,6 +1,17 @@
 # sample_vulnerable_chrome_ext
 Some sample vulnerable Chrome extensions (under different attacker models: advanced renderer attacker &amp; simple web attacker and under different manifest versions: MV2 &amp; MV3).
 
+```
+[Web Page] <-----postMessage/DOM/localStorage-----> [Content Script] <-----messages/extension storage-----> [Background Page (MV2) / Service Worker (MV3)] -----can insert stuff into-----> [Other Web Pages]
+  |                                                                                                                      /|\
+  -----------------------------------------------runtime.sendMessage()-----------------------------------------------------
+```
+
+`Web Page` and `Content Script` lie in the same process (the renderer process), while the `Background Page` lies in a seperate process (the extension process).
+
+While a simple web attacker can only influence the background page through the arrows shown between web page and content script and web page and background page,  
+a more powerful renderer attacker can take over the content script as well and influence the background page through the arrow shown between content script and background page.
+
 ## Renderer attacker
 
 Vulnerabilities considered here are those considered by Young Min Kim and Byoungyoung Lee in their 2023 paper *Extending a Hand to Attackers: Browser Privilege Escalation Attacks via Extensions*:
