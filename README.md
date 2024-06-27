@@ -36,7 +36,7 @@ Vulnerabilities considered here are those considered by Young Min Kim and Byoung
 
 ## Simple web attacker
 
-Other papers (like "DoubleX" by Fass et al. and "CoCo" by Yu et al.) assume a weaker attacker model of a simple (non-renderer) web attacker:
+Other papers (like ["DoubleX" by Fass et al.](https://github.com/Aurore54F/DoubleX) and ["CoCo" by Yu et al.](https://github.com/CoCoAbstractInterpretation/CoCo)) assume a weaker attacker model of a simple (non-renderer) web attacker:
 
 * *Vulnerabilities exploitable under a weaker attacker model, namely by simple (non-renderer) web attackers:* **Web page** can interact with the **content script** through postMessages, the DOM and localStorage; as well as the **background page/service worker** through runtime.sendMessage() (but only *if* the web page's URL is specified under the "externally_connectable" key in the extension's manifest.json!):
   * The web page has access to a privileged API through runtime.sendMessage(), i.e. through direct communication with the background page (MV2): `vuln01_weak_mv2_runtime_sendMessage`
@@ -76,4 +76,16 @@ Other papers (like "DoubleX" by Fass et al. and "CoCo" by Yu et al.) assume a we
      * `vuln02_weak_mv3_localStorage_ext_storage`
 
 Note that, for simplicity, we're always assuming non-authentication (instead of ill-authentication) for all of the examples above.
+
+## Non-vulnerable extensions
+
+For comparison (for testing against false positives for your analysis tool), there are also non-vulnerable extensions:
+* An extremely simple extension, without any communication or functionality (MV2): `non_vulnerable_mv2`
+* An extremely simple extension, without any communication or functionality (MV3): `non_vulnerable_mv3`
+* Content script to background page communication (MV2), well-authenticated: `non_vuln01_mv2_well_authenticated`
+* Content script to service worker communication (MV3), well-authenticated: `non_vuln01_mv3_well_authenticated`
+* Background page (MV2) is storing (non-sensitive) data on the extension storage but not pasting it into other websites at all, leaving no UXSS vector: `non_vuln02_mv2_no_uxss`
+* Background page (MV2) is storing (non-sensitive) data on the extension storage and does paste it into other websites, but correctly sanitized, leaving no actual UXSS vector: `non_vuln02_mv2_uxss_safe`
+* Service worker (MV3) is storing (non-sensitive) data on the extension storage but not pasting it into other websites at all, leaving no UXSS vector: `non_vuln02_mv3_no_uxss`
+* Service worker (MV3) is storing (non-sensitive) data on the extension storage and does paste it into other websites, but correctly sanitized, leaving no actual UXSS vector: `non_vuln02_mv3_uxss_safe`
 
