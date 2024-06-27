@@ -1,1 +1,4 @@
 .DS_Store
+.venv
+analysis.json
+extension_doublex_apis.json
