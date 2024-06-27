@@ -1,20 +1,21 @@
 {
-  "manifest_version": 3,
-  "name": "A non-vulnerable Chrome Extension (MV3)",
+  "manifest_version": 2,
+  "name": "A non-vulnerable Chrome Extension (MV2)",
   "version": "1.0",
-  "description": "A simple, non-vulnerable, Chrome extension (MV3)",
+  "description": "A simple, non-vulnerable, Chrome extension (MV2)",
   "permissions": [
     "storage",
     "tabs"
   ],
-  "action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "128": "icons/icon128.png"
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_scripts": [
     {
