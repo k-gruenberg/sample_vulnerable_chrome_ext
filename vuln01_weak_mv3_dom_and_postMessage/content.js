@@ -1,7 +1,7 @@
 console.log('Content script running');
 
 // In this example extension, the content script acts as a proxy (confused deputy) between a malicious website and the (highly privileged) service worker;
-//  not directly via postMessages as in "vuln01_weak_mv3_postMessage" but this time more indirectly by listening to a (and also responding *via* a) DOM event:
+//  not *just* directly via postMessages as in "vuln01_weak_mv3_postMessage" but *also* more indirectly by listening to a DOM event:
 
 // Listen for a specific DOM event: // cf. https://stackoverflow.com/questions/3219758/detect-changes-in-the-dom
 var targetNode = document.getElementById('some-id'); // Select the node that will be observed for mutations

