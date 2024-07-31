@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "A web-attacker-vulnerable Chrome Extension (MV3)",
+  "version": "1.0",
+  "description": "A web-attacker-vulnerable Chrome extension (vuln. type #01, weak/pure web attacker, non-authenticated) (MV3)",
+  "permissions": [
+    "storage",
+    "tabs",
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "externally_connectable": {
+    "matches": [
+      "<all_urls>"
+    ]
+  }
+}
