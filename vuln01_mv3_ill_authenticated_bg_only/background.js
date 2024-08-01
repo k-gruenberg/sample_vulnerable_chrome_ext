@@ -1,0 +1,27 @@
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('Extension installed');
+});
+
+// Vulnerable extension's background page (cf. 2023 paper by Young Min Kim and Byoungyoung Lee, Listing 1):
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (sender.url.startsWith("https://www.google.com")) {
+    // VULNERABILITY LIES IN THE IF STATEMENT ABOVE: Does not authenticate the URL (sender.url) properly(!)
+    //   => requesting "content script" may be from a malicious site (made to be matching the check above)
+    //      that used a vulnerability in Chrome's rendering engine to escalate its privileges!
+    //   => under the assumption of a regular (non-renderer) web attacker, this is not(!) a vulnerability as the service worker cannot receive
+    //      any messages from websites if the "externally_connectable" key isn't specified in the manifest.json (which it isn't in this case,
+    //      and, besides, "chrome.runtime.onMessageExternal.addListener()" would have to be used instead, too)!
+    console.log('URL authentication succeeded for ' + sender.url);
+    chrome.cookies.getAll({}, // <= privileged API; see also: https://developer.chrome.com/docs/extensions/reference/api/cookies
+      function(cookies) {
+        //console.log(cookies);
+        sendResponse(cookies);
+      }
+    );
+
+    // Return true to indicate that we will respond asynchronously!
+    return true;
+  } else {
+    console.log('URL authentication failed for ' + sender.url);
+  }
+});
