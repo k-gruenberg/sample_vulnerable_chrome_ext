@@ -94,3 +94,25 @@ For comparison (for testing against false positives for your analysis tool), the
 For some test cases `x` there's also a second variant, named `x_bg_only`, with the only difference that the `content.js` delivered does not provide a hint on the exploitation vector for the vulnerability present.  
 This has no effect on the vulnerability itself (as the renderer attacker that we assume can impersonate the content script entirely) but possibly on the ability for detection tools to detect it!  
 `_bg_only` varaints do not exist for the weak web attacker model as here the content script is necessary as the confused deputy between web page and service worker/background script.
+
+## Overview vulnerable & non-vulnerable extensions
+
+| Extension                                                        | Vulnerability | Attacker model | Authentication | Sanitization | Content Script
+| ---------------------------------------------------------------- | ------------- | -------------- | -------------- | ------------ | --------------
+| non_vulnerable_mv3                                               | none          |                |                |              | 
+| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | --------------
+| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | renderer       | none           |              | yes
+| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | renderer       | none           |              | no
+| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | renderer       | bad            |              | yes
+| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | renderer       | bad            |              | no
+| non_vuln01_mv3_well_authenticated                                | none          |                | sufficient     |              | yes
+| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                | sufficient     |              | no
+| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | --------------
+| vuln02_mv3                                                       | type 4.2 [1]  | renderer       |                | none         | yes
+| vuln02_mv3_bg_only                                               | type 4.2 [1]  | renderer       |                | none         | no
+| non_vuln02_mv3_no_uxss                                           | none          |                |                | N/A          | yes
+| non_vuln02_mv3_no_uxss_bg_only                                   | none          |                |                | N/A          | no
+| non_vuln02_mv3_uxss_safe                                         | none          |                |                | correct      | yes
+| non_vuln02_mv3_uxss_safe_bg_only                                 | none          |                |                | correct      | no
+
+[1] *Extending a Hand to Attackers: Browser Privilege Escalation Attacks via Extensions* (2023, Young Min Kim and Byoungyoung Lee)
