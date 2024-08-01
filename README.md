@@ -89,3 +89,8 @@ For comparison (for testing against false positives for your analysis tool), the
 * Service worker (MV3) is storing (non-sensitive) data on the extension storage but not pasting it into other websites at all, leaving no UXSS vector: `non_vuln02_mv3_no_uxss`
 * Service worker (MV3) is storing (non-sensitive) data on the extension storage and does paste it into other websites, but correctly sanitized, leaving no actual UXSS vector: `non_vuln02_mv3_uxss_safe`
 
+## '_bg_only' extensions
+
+For some test cases `x` there's also a second variant, named `x_bg_only`, with the only difference that the `content.js` delivered does not provide a hint on the exploitation vector for the vulnerability present.  
+This has no effect on the vulnerability itself (as the renderer attacker that we assume can impersonate the content script entirely) but possibly on the ability for detection tools to detect it!  
+`_bg_only` varaints do not exist for the weak web attacker model as here the content script is necessary as the confused deputy between web page and service worker/background script.
