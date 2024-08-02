@@ -95,24 +95,40 @@ For some test cases `x` there's also a second variant, named `x_bg_only`, with t
 This has no effect on the vulnerability itself (as the renderer attacker that we assume can impersonate the content script entirely) but possibly on the ability for detection tools to detect it!  
 `_bg_only` varaints do not exist for the weak web attacker model as here the content script is necessary as the confused deputy between web page and service worker/background script.
 
+Note that it is *still* required for the renderer attacker that *any* content script is being injected (at all) for the exploit to work!
+
+## '_cs_only' extensions
+
+Similarly, for some test cases `x` where the background page doesn't actually play an important role, there's also a `x_cs_only` variant.
+
 ## Overview vulnerable & non-vulnerable extensions
 
-| Extension                                                        | Vulnerability | Attacker model | Authentication | Sanitization | Content Script
-| ---------------------------------------------------------------- | ------------- | -------------- | -------------- | ------------ | --------------
-| non_vulnerable_mv3                                               | none          |                |                |              | 
-| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | --------------
-| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | renderer       | none           |              | yes
-| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | renderer       | none           |              | no
-| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | renderer       | bad            |              | yes
-| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | renderer       | bad            |              | no
-| non_vuln01_mv3_well_authenticated                                | none          |                | sufficient     |              | yes
-| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                | sufficient     |              | no
-| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | --------------
-| vuln02_mv3                                                       | type 4.2 [1]  | renderer       |                | none         | yes
-| vuln02_mv3_bg_only                                               | type 4.2 [1]  | renderer       |                | none         | no
-| non_vuln02_mv3_no_uxss                                           | none          |                |                | N/A          | yes
-| non_vuln02_mv3_no_uxss_bg_only                                   | none          |                |                | N/A          | no
-| non_vuln02_mv3_uxss_safe                                         | none          |                |                | correct      | yes
-| non_vuln02_mv3_uxss_safe_bg_only                                 | none          |                |                | correct      | no
+| Extension                                                        | Vulnerability | Attacker model | Authentication | Sanitization | UXSS via | Content Script | Background Page |
+| ---------------------------------------------------------------- | ------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| non_vulnerable_mv3                                               | none          |                |                |              |          |                |                 |
+| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | renderer       | none           |              |          | yes            | yes             |
+| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | renderer       | none           |              |          | no             | yes             |
+| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | renderer       | bad            |              |          | yes            | yes             |
+| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | renderer       | bad            |              |          | no             | yes             |
+| non_vuln01_mv3_well_authenticated                                | none          |                | sufficient     |              |          | yes            | yes             |
+| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                | sufficient     |              |          | no             | yes             |
+| ------------------------------------------                       | ------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| vuln02_mv3                                                       | type 4.2 [1]  | renderer       |                | none         | CS       | yes            | yes             |
+| vuln02_mv3_executeScript                                         | type 4.2 [1]  | renderer       |                | none         | BP       | yes            | yes             |
+| vuln02_mv3_cs_only                                               | type 4.2 [1]  | renderer       |                | none         | CS       | yes            | no              |
+| vuln02_mv3_executeScript_bg_only                                 | type 4.2 [1]  | renderer       |                | none         | BP       | no             | yes             |
+| vuln02_mv3_via_msg_non_authenticated                             | type 4.2 [1]  | renderer       | none           | none         | BP       | yes            | yes             |
+| vuln02_mv3_via_msg_ill_authenticated                             | type 4.2 [1]  | renderer       | bad            | none         | BP       | yes            | yes             |
+| non_vuln02_mv3_no_uxss                                           | none          |                |                | N/A          |          | yes            |                 |
+| non_vuln02_mv3_no_uxss_cs_only                                   | none          |                |                | N/A          |          | yes            | no              |
+| non_vuln02_mv3_no_uxss_bg_only                                   | none          |                |                | N/A          |          | no             | yes             |
+| non_vuln02_mv3_uxss_safe                                         | none          |                |                | correct      |          | yes            | yes             |
+| non_vuln02_mv3_uxss_safe_executeScript                           | none          |                |                | correct      |          | yes            | yes             |
+| non_vuln02_mv3_uxss_safe_cs_only                                 | none          |                |                | correct      |          | yes            | no              |
+| non_vuln02_mv3_uxss_safe_executeScript_bg_only                   | none          |                |                | correct      |          | no             | yes             |
+| non_vuln02_mv3_via_msg_well_authenticated                        | none          |                | sufficient     | none         |          | yes            | yes             |
+| non_vuln02_mv3_via_msg_no_uxss                                   | none          |                | none           | N/A          |          | yes            | yes             |
+| non_vuln02_mv3_via_msg_uxss_safe                                 | none          |                | none           | correct      |          | yes            | yes             |
 
 [1] *Extending a Hand to Attackers: Browser Privilege Escalation Attacks via Extensions* (2023, Young Min Kim and Byoungyoung Lee)
