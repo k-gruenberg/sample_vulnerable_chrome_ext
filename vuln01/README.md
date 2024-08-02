@@ -12,14 +12,14 @@ For type 4.1 [1] vulnerabilites, the attacker is able to execute a privileged br
 messages to the service worker (background page), disguised as the content script, without the service worker (background page) *properly* verifying the
 sender URL of the message:
 
-| Extension                                                        | Vulnerability | Sec. Req. Violation | Attacker model | Authentication | Sanitization | UXSS via | Content Script | Background Page |
-| ---------------------------------------------------------------- | ------------- | ------------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
-| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | none           |              |          | yes            | yes             |
-| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | none           |              |          | no             | yes             |
-| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            |              |          | yes            | yes             |
-| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            |              |          | no             | yes             |
-| non_vuln01_mv3_well_authenticated                                | none          |                     |                | sufficient     |              |          | yes            | yes             |
-| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                     |                | sufficient     |              |          | no             | yes             |
+| Extension                                                        | Vulnerability | Sec. Req. Violation | Attacker model | Authentication | Sanitization | Content Script | Background Page |
+| ---------------------------------------------------------------- | ------------- | ------------------- | -------------- | -------------- | ------------ | -------------- | --------------- |
+| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | none           | N/A          | yes            | yes             |
+| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | none           | N/A          | no             | yes             |
+| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            | N/A          | yes            | yes             |
+| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            | N/A          | no             | yes             |
+| non_vuln01_mv3_well_authenticated                                | none          |                     |                | sufficient     | N/A          | yes            | yes             |
+| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                     |                | sufficient     | N/A          | no             | yes             |
 
 [1] *Extending a Hand to Attackers: Browser Privilege Escalation Attacks via Extensions* (2023, Young Min Kim and Byoungyoung Lee)
 
