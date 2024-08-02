@@ -141,7 +141,7 @@ Vulnerabilities/Attacks (see [1]):
 Security Requirements (see [1]):
 * 3.1: the background page has to authenticate the sender URL of all messages coming from content scripts
 * 3.2: security-critical, privacy-sensitive or cross-site data shall not be stored on the extension storage
-* 3.2: security-critical or privacy-sensitive data shall not be stored in content script memory (*read* renderer attacker is sufficient for exploitation here)
+* 3.3: security-critical or privacy-sensitive data shall not be stored in content script memory (*read* renderer attacker is sufficient for exploitation here)
 
 Possible combinations (cf. [1], Table 1):
 
