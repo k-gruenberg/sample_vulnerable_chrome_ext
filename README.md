@@ -21,10 +21,15 @@ Vulnerabilities considered here are those considered by Young Min Kim and Byoung
   * Content script to background page (MV2), ill-authenticated: `vuln01_mv2_ill_authenticated`
   * Content script to service worker (MV3), non-authenticated: `vuln01_mv3_non_authenticated`
   * Content script to service worker (MV3), ill-authenticated: `vuln01_mv3_ill_authenticated`
+  * For each of the above, there's also a `_bg_only` version (cf. Section on `_bg_only` versions below).
 
-* *Vulnerability type 02:* The **background page/service worker** is storing data on the **extension storage** which it then pastes to different websites, unfiltered, resulting in UXSS:
-  * Background page (MV2) and extension storage: `vuln02_mv2`
-  * Service worker (MV3) and extension storage: `vuln02_mv3`
+* *Vulnerability type 02:* The **background page/service worker** is storing/using data on the **extension storage** which it then pastes to different websites, unfiltered, resulting in UXSS. Alternatively, the **content script** can send data to the **background page/service worker** which it then pastes into other websites, resulting in UXSS. Alternatively, a **content script** puts data on the **extension storage** which is then pasted into another site by another **content script**, resulting in UXSS:
+  * Content script pasting data from the extension storage into the site, unsanitized: `vuln02_mv3_cs_only`
+  * Content script pasting data from the extension storage into the site, unsanitized; service worker (MV3) also accessing the extension storage (though not relevant for the exploit): `vuln02_mv3`
+  * Service worker (MV3) pasting data from the extension storage into websites, unsanitized: `vuln02_mv3_executeScript_bg_only`
+  * Service worker (MV3) pasting data from the extension storage into websites, unsanitized; content script also accessing the extension storage (though not relevant for the exploit):`vuln02_mv3_executeScript`
+  * Service worker (MV3) receiving a message from the content script (w/o authenticating it) and pasting the data into another site, unsanitized: `vuln02_mv3_via_msg_non_authenticated`
+  * Service worker (MV3) receiving a message from the content script (w/o *properly* authenticating it) and pasting the data into another site, unsanitized: `vuln02_mv3_via_msg_ill_authenticated`
  
 * *Vulnerability type 03:* The **content script** has access to *sensitive* data, either through extension messages exchanged with the **background script/service worker** or through the **extension storage**:
   * Sensitive data in extension storage (MV2 extension): `vuln03_mv2_ext_storage`
