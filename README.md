@@ -125,7 +125,7 @@ Similarly, for some test cases `x` where the background page doesn't actually pl
 | vuln02_mv3_executeScript_bg_only                                 | type 4.2 [1]  | 3.2 [1]             | renderer       |                | none         | BP       | no             | yes             |
 | vuln02_mv3_via_msg_non_authenticated                             | type 4.2 [1]  | 3.1 [1]             | renderer       | none           | none         | BP       | yes            | yes             |
 | vuln02_mv3_via_msg_ill_authenticated                             | type 4.2 [1]  | 3.1 [1]             | renderer       | bad            | none         | BP       | yes            | yes             |
-| non_vuln02_mv3_no_uxss                                           | none          |                     |                |                | N/A          |          | yes            |                 |
+| non_vuln02_mv3_no_uxss                                           | none          |                     |                |                | N/A          |          | yes            | yes             |
 | non_vuln02_mv3_no_uxss_cs_only                                   | none          |                     |                |                | N/A          |          | yes            | no              |
 | non_vuln02_mv3_no_uxss_bg_only                                   | none          |                     |                |                | N/A          |          | no             | yes             |
 | non_vuln02_mv3_uxss_safe                                         | none          |                     |                |                | correct      |          | yes            | yes             |
