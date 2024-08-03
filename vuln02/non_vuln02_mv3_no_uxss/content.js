@@ -3,7 +3,7 @@ console.log('Content script running');
 // No UXSS vulnerability here.
 
 chrome.storage.local.get(["user_name"]).then((result) => {
-    let user_name = result.key;
+    let user_name = result["user_name"];
     console.log("Content script retrieved user name from extension storage: " + user_name);
 });
 

@@ -6,6 +6,6 @@ chrome.runtime.onInstalled.addListener(() => {
 // Notice that the manifest.json still contains the necessary "scripting" permission for that though!
 
 chrome.storage.local.get(["user_name"]).then((result) => {
-    let user_name = result.key;
+    let user_name = result["user_name"];
     console.log("Service worker retrieved user name from extension storage: " + user_name);
 });

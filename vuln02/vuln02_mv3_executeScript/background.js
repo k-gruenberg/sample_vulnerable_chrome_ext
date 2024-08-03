@@ -9,7 +9,7 @@ chrome.runtime.onInstalled.addListener(() => {
 // More precisely, this service worker takes a value out of the extension storage and pastes it into other websites, unsanitized, resulting in UXSS:
 
 chrome.storage.local.get(["user_name"]).then((result) => {
-    let user_name = result.key;
+    let user_name = result["user_name"];
     console.log("Service worker retrieved user name from extension storage: " + user_name);
 
     // In each open tab...
