@@ -6,6 +6,6 @@ chrome.runtime.onInstalled.addListener(() => {
 // The service worker is accessing the extension storage, just like the content script.
 // The actual UXSS vulnerability however lies in the content script and in the content script only.
 
-chrome.storage.session.set({ "user_name": "John Doe" }).then(() => {
+chrome.storage.local.set({ "user_name": "John Doe" }).then(() => {
   console.log("User name value was set by service worker.");
 });
