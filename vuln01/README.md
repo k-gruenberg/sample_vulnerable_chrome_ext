@@ -4,7 +4,7 @@ as well as 2 sample extensions which are actually *not* vulnerable due to the se
 
 ## Overview vulnerable & non-vulnerable extensions (under the renderer attacker model)
 
-Under the renderer attacker model, a malicious website used a vulnerability (e.g., a buffer overflow) in Chrome's rendering engine to gain control of the
+Under the renderer attacker model, a malicious website uses a vulnerability (e.g., a buffer overflow) in Chrome's rendering engine to gain control of the
 renderer process. Thereby, the attacker can do whatever the content script is capable of doing; assuming that there *is* an injected content script
 (otherwise there would be no vulnerability, unless there is *yet another* vulnerability like CVE-2022-32784 [1]).
 

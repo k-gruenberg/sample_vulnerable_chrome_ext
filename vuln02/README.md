@@ -22,7 +22,7 @@ The following extensions are the corresponding *non-vulnerable* ones:
 
 ## Overview vulnerable & non-vulnerable extensions (under the renderer attacker model)
 
-Under the renderer attacker model, a malicious website used a vulnerability (e.g., a buffer overflow) in Chrome's rendering engine to gain control of the
+Under the renderer attacker model, a malicious website uses a vulnerability (e.g., a buffer overflow) in Chrome's rendering engine to gain control of the
 renderer process. Thereby, the attacker can do whatever the content script is capable of doing; assuming that there *is* an injected content script
 (otherwise there would be no vulnerability, unless there is *yet another* vulnerability like CVE-2022-32784 [1]). This includes accessing the extension
 storage. When the background page or the content script of another website now pastes content from the extension storage into another website, a UXSS vector
