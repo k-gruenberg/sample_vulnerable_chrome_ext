@@ -25,6 +25,8 @@ chrome.storage.local.get(["user_name"]).then((result) => {
                     const body = document.getElementsByTagName('body')[0];
                     const new_span = document.createElement('span');
                     new_span.innerHTML = 'Hello ' + uname.replace(/\W/g,"") + '!'; // <== CORRECT SANITIZATION
+                    /* (Note that it would probably be smarter to use .innerText in practice but that would be a non-dangerous (UXSS) sink in the first place
+                        and the purpose of this sample extension is to see if a tool can correctly detect sanitization functions along a data flow.) */
                     body.append(new_span);
 
                 },
