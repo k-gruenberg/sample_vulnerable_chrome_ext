@@ -64,12 +64,16 @@ Under the web attacker model, it is required that the malicious web page has ind
 the content script (or the background page/service worker). If the background page/service (or content script) worker then pastes this data into different
 websites, unfiltered, we got UXSS:
 
-| Extension                                                        | Web page -> CS comm.  | Web page <- CS comm. | Attacker model | Authentication | Sanitization | DoubleX  | CoCo |
-| ---------------------------------------------------------------- | --------------------- | -------------------- | -------------- | -------------- | ------------ | -------- | ---- |
-| vuln02_weak_mv3_runtime_sendMessage_ext_storage                  | (none)                | (none)               | web            | none           | none         | ToDo     | ToDo |
-| vuln02_weak_mv3_postMessage_ext_storage                          | postMessage           | postMessage          | web            | none           | none         | ToDo     | ToDo |
-| vuln02_weak_mv3_dom_ext_storage                                  | DOM                   | DOM                  | web            | none           | none         | ToDo     | ToDo |
-| vuln02_weak_mv3_localStorage_ext_storage                         | localStorage          | localStorage         | web            | none           | none         | ToDo     | ToDo |
+| Extension                                                        | Web page -> CS comm.  | Web page <- CS comm. | Attacker model | Authentication | Sanitization | UXSS via | DoubleX  | CoCo |
+| ---------------------------------------------------------------- | --------------------- | -------------------- | -------------- | -------------- | ------------ | -------- | -------- | ---- |
+| vuln02_weak_mv3_runtime_sendMessage_uxss_via_bp                  | (none)                | (none)               | web            | none           | none         | BP       | ToDo     | ToDo |
+| vuln02_weak_mv3_runtime_sendMessage_ext_storage_uxss_via_cs      | (none)                | (none)               | web            | none           | none         | CS       | ToDo     | ToDo |
+| vuln02_weak_mv3_postMessage_ext_storage_uxss_via_bp              | postMessage           | (none)               | web            | none           | none         | BP       | ToDo     | ToDo |
+| vuln02_weak_mv3_dom_ext_storage_uxss_via_bp                      | DOM                   | (none)               | web            | none           | none         | BP       | ToDo     | ToDo |
+| vuln02_weak_mv3_localStorage_ext_storage_uxss_via_bp             | localStorage          | (none)               | web            | none           | none         | BP       | ToDo     | ToDo |
+| vuln02_weak_mv3_postMessage_ext_storage_uxss_via_cs              | postMessage           | (none)               | web            | none           | none         | CS       | ToDo     | ToDo |
+| vuln02_weak_mv3_dom_ext_storage_uxss_via_cs                      | DOM                   | (none)               | web            | none           | none         | CS       | ToDo     | ToDo |
+| vuln02_weak_mv3_localStorage_ext_storage_uxss_via_cs             | localStorage          | (none)               | web            | none           | none         | CS       | ToDo     | ToDo |
 
 
 ## Notes on UXSS
