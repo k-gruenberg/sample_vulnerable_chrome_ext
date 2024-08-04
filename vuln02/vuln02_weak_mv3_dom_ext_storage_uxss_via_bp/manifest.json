@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "A vulnerable Chrome Extension (MV3)",
+  "version": "1.0",
+  "description": "A vulnerable Chrome extension (vuln. type #02, web attacker model, non-sanitized, non-authenticated) (MV3)",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
