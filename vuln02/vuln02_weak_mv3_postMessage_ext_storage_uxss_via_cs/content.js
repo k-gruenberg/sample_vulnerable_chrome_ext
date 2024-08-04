@@ -20,7 +20,7 @@ console.log('Content script running');
 // (A):
 // Listen for messages from the website (note that there's no data leakage in the response; we have a UXSS vulnerability here because the *request*
 //     data is stored and later re-used but never sanitized):
-window.addEventListener('message', function(event) { // TODO
+window.addEventListener('message', function(event) {
     if (event.source !== window) {
         return; // Ignore messages not from the window
     }
