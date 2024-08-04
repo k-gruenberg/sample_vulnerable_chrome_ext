@@ -108,33 +108,39 @@ Similarly, for some test cases `x` where the background page doesn't actually pl
 
 ## Overview vulnerable & non-vulnerable extensions
 
-| Extension                                                        | Vulnerability | Sec. Req. Violation | Attacker model | Authentication | Sanitization | UXSS via | Content Script | Background Page |
-| ---------------------------------------------------------------- | ------------- | ------------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
-| non_vulnerable_mv3                                               | none          |                     |                |                |              |          |                |                 |
-| ------------------------------------------                       | ------------- | ------------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
-| vuln01_mv3_non_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | none           |              |          | yes            | yes             |
-| vuln01_mv3_non_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | none           |              |          | no             | yes             |
-| vuln01_mv3_ill_authenticated                                     | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            |              |          | yes            | yes             |
-| vuln01_mv3_ill_authenticated_bg_only                             | type 4.1 [1]  | 3.1 [1]             | renderer       | bad            |              |          | no             | yes             |
-| non_vuln01_mv3_well_authenticated                                | none          |                     |                | sufficient     |              |          | yes            | yes             |
-| non_vuln01_mv3_well_authenticated_bg_only                        | none          |                     |                | sufficient     |              |          | no             | yes             |
-| ------------------------------------------                       | ------------- | ------------------- | -------------- | -------------- | ------------ | -------- | -------------- | --------------- |
-| vuln02_mv3                                                       | ~type 4.2 [1] | 3.2 [1]             | renderer       |                | none         | CS       | yes            | yes             |
-| vuln02_mv3_executeScript                                         | type 4.2 [1]  | 3.2 [1]             | renderer       |                | none         | BP       | yes            | yes             |
-| vuln02_mv3_cs_only                                               | ~type 4.2 [1] | 3.2 [1]             | renderer       |                | none         | CS       | yes            | no              |
-| vuln02_mv3_executeScript_bg_only                                 | type 4.2 [1]  | 3.2 [1]             | renderer       |                | none         | BP       | no             | yes             |
-| vuln02_mv3_via_msg_non_authenticated                             | type 4.2 [1]  | 3.1 [1]             | renderer       | none           | none         | BP       | yes            | yes             |
-| vuln02_mv3_via_msg_ill_authenticated                             | type 4.2 [1]  | 3.1 [1]             | renderer       | bad            | none         | BP       | yes            | yes             |
-| non_vuln02_mv3_no_uxss                                           | none          |                     |                |                | N/A          |          | yes            | yes             |
-| non_vuln02_mv3_no_uxss_cs_only                                   | none          |                     |                |                | N/A          |          | yes            | no              |
-| non_vuln02_mv3_no_uxss_bg_only                                   | none          |                     |                |                | N/A          |          | no             | yes             |
-| non_vuln02_mv3_uxss_safe                                         | none          |                     |                |                | correct      |          | yes            | yes             |
-| non_vuln02_mv3_uxss_safe_executeScript                           | none          |                     |                |                | correct      |          | yes            | yes             |
-| non_vuln02_mv3_uxss_safe_cs_only                                 | none          |                     |                |                | correct      |          | yes            | no              |
-| non_vuln02_mv3_uxss_safe_executeScript_bg_only                   | none          |                     |                |                | correct      |          | no             | yes             |
-| non_vuln02_mv3_via_msg_well_authenticated                        | none          |                     |                | sufficient     | none         |          | yes            | yes             |
-| non_vuln02_mv3_via_msg_no_uxss                                   | none          |                     |                | none           | N/A          |          | yes            | yes             |
-| non_vuln02_mv3_via_msg_uxss_safe                                 | none          |                     |                | none           | correct      |          | yes            | yes             |
+| Extension                                                            | Vulnerability | Sec. Req. Violation | Attacker model  | Authentication | Sanitization | UXSS via | Content Script | Background Page |
+| -------------------------------------------------------------------- | ------------- | ------------------- | --------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| non_vulnerable_mv3                                                   | none          |                     |                 |                |              |          |                |                 |
+| ------------------------------------------                           | ------------- | ------------------- | --------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| vuln01_mv3_non_authenticated                                         | type 4.1 [1]  | 3.1 [1]             | renderer        | none           |              |          | yes            | yes             |
+| vuln01_mv3_non_authenticated_bg_only                                 | type 4.1 [1]  | 3.1 [1]             | renderer        | none           |              |          | no             | yes             |
+| vuln01_mv3_ill_authenticated                                         | type 4.1 [1]  | 3.1 [1]             | renderer        | bad            |              |          | yes            | yes             |
+| vuln01_mv3_ill_authenticated_bg_only                                 | type 4.1 [1]  | 3.1 [1]             | renderer        | bad            |              |          | no             | yes             |
+| non_vuln01_mv3_well_authenticated                                    | none          |                     |                 | sufficient     |              |          | yes            | yes             |
+| non_vuln01_mv3_well_authenticated_bg_only                            | none          |                     |                 | sufficient     |              |          | no             | yes             |
+| ------------------------------------------                           | ------------- | ------------------- | --------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| vuln02_mv3                                                           | ~type 4.2 [1] | 3.2 [1]             | renderer        |                | none         | CS       | yes            | yes             |
+| vuln02_mv3_executeScript                                             | type 4.2 [1]  | 3.2 [1]             | renderer        |                | none         | BP       | yes            | yes             |
+| vuln02_mv3_cs_only                                                   | ~type 4.2 [1] | 3.2 [1]             | renderer        |                | none         | CS       | yes            | no              |
+| vuln02_mv3_executeScript_bg_only                                     | type 4.2 [1]  | 3.2 [1]             | renderer        |                | none         | BP       | no             | yes             |
+| vuln02_mv3_via_msg_non_authenticated                                 | type 4.2 [1]  | 3.1 [1]             | renderer        | none           | none         | BP       | yes            | yes             |
+| vuln02_mv3_via_msg_ill_authenticated                                 | type 4.2 [1]  | 3.1 [1]             | renderer        | bad            | none         | BP       | yes            | yes             |
+| non_vuln02_mv3_no_uxss                                               | none          |                     |                 |                | N/A          |          | yes            | yes             |
+| non_vuln02_mv3_no_uxss_cs_only                                       | none          |                     |                 |                | N/A          |          | yes            | no              |
+| non_vuln02_mv3_no_uxss_bg_only                                       | none          |                     |                 |                | N/A          |          | no             | yes             |
+| non_vuln02_mv3_uxss_safe                                             | none          |                     |                 |                | correct      |          | yes            | yes             |
+| non_vuln02_mv3_uxss_safe_executeScript                               | none          |                     |                 |                | correct      |          | yes            | yes             |
+| non_vuln02_mv3_uxss_safe_cs_only                                     | none          |                     |                 |                | correct      |          | yes            | no              |
+| non_vuln02_mv3_uxss_safe_executeScript_bg_only                       | none          |                     |                 |                | correct      |          | no             | yes             |
+| non_vuln02_mv3_via_msg_well_authenticated                            | none          |                     |                 | sufficient     | none         |          | yes            | yes             |
+| non_vuln02_mv3_via_msg_no_uxss                                       | none          |                     |                 | none           | N/A          |          | yes            | yes             |
+| non_vuln02_mv3_via_msg_uxss_safe                                     | none          |                     |                 | none           | correct      |          | yes            | yes             |
+| ------------------------------------------                           | ------------- | ------------------- | --------------- | -------------- | ------------ | -------- | -------------- | --------------- |
+| vuln03_mv3_credentials_accessible_via_ext_msg_non_authenticated      | type 4.3 [1]  | 3.1 [1]             | renderer        | none           |              |          | yes            | yes             |
+| vuln03_mv3_credentials_accessible_via_ext_msg_ill_authenticated      | type 4.3 [1]  | 3.1 [1]             | renderer        | bad            |              |          | yes            | yes             |
+| vuln03_mv3_credentials_stored_on_ext_storage                         | type 4.3 [1]  | 3.2 [1]             | renderer        |                |              |          | yes            | yes             |
+| vuln03_mv3_credentials_in_cs_memory                                  | type 4.3 [1]  | 3.3 [1]             | renderer (read) |                |              |          | yes            | yes             |
+| non_vuln03_mv3_credentials_accessible_via_ext_msg_well_authenticated | none          |                     |                 | sufficient     |              |          | yes            | yes             |
 
 [1] *Extending a Hand to Attackers: Browser Privilege Escalation Attacks via Extensions* (2023, Young Min Kim and Byoungyoung Lee)
 
