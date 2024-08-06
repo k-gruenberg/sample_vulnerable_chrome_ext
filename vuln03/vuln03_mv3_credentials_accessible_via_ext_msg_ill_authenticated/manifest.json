@@ -5,8 +5,7 @@
   "description": "A vulnerable Chrome extension (vuln. type #03, security violation 3.1, ill-authenticated) (MV3)",
   "permissions": [
     "storage",
-    "tabs",
-    "offscreen"
+    "tabs"
   ],
   "host_permissions": [
     "<all_urls>"

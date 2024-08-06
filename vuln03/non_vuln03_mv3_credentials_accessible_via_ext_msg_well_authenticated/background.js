@@ -34,9 +34,8 @@ chrome.runtime.onInstalled.addListener(() => {
     };
 });
 
-// A violation of type 3.1: The service worker should (properly!) authenticate messages coming from the content script:
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (sender.url === "https://www.google.com/") {
+    if (sender.url === "https://www.google.com/") { // <== PROPERLY AUTHENTICATED! (i.e., no violation of type 3.1 here)
         console.log('URL authentication succeeded for ' + sender.url);
     
         // Send back sensitive data to the content script, namely some credentials.
