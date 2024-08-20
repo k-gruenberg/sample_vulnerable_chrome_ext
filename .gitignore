@@ -1,6 +1,7 @@
 .DS_Store
 .venv
 analysis.json
+analysis_renderer_attacker.json
 extension_doublex_apis.json
 opgen_generated_files
 *.pdf
