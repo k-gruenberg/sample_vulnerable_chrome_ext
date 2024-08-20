@@ -6,3 +6,4 @@ extension_doublex_apis.json
 opgen_generated_files
 *.pdf
 *.csv
+*.gv
