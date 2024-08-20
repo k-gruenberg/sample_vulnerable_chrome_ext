@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //      any messages from websites if the "externally_connectable" key isn't specified in the manifest.json (which it isn't in this case,
   //      and, besides, "chrome.runtime.onMessageExternal.addListener()" would have to be used instead, too)!
   chrome.cookies.getAll({}, // <= privileged API; see also: https://developer.chrome.com/docs/extensions/reference/api/cookies
-    function(cookies) {
+    (cookies) => {
       //console.log(cookies);
       sendResponse(cookies);
     }
